@@ -9,18 +9,18 @@ function App() {
     <div className='App'>
       <header className='App-header'>
         <Navigation />
-        <Switch>
-          <Route path='/' exact>
-            <HomeView />
-          </Route>
-          <Route path='/movies'>
-            <MoviesView />
-          </Route>
-          <Route path='/'>
-            <NotFoundView />
-          </Route>
-        </Switch>
       </header>
+      <Switch>
+        <Route path='/' exact>
+          <HomeView />
+        </Route>
+        <Route path='/movies'>
+          <MoviesView />
+        </Route>
+        <Route path='/'>
+          <NotFoundView />
+        </Route>
+      </Switch>
     </div>
   );
 }

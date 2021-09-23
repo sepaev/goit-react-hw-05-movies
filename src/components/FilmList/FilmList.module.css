@@ -1,0 +1,12 @@
+._filmList {
+  list-style: circle;
+  padding-left: 50px;
+}
+
+._filmLink {
+  text-decoration: none;
+  color: black;
+  font-weight: 700;
+  font-size: large;
+  filter: drop-shadow(2px 2px 6px red);
+}

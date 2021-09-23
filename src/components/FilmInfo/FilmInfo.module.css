@@ -1,0 +1,16 @@
+._goBackButton {
+  padding: 10px;
+}
+
+._infoSection {
+  display: flex;
+}
+
+._imageWrapper {
+  width: 200px;
+  margin-right: 20px;
+}
+
+._posterImage {
+  width: 200px;
+}
