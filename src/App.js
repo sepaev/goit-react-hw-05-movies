@@ -11,13 +11,13 @@ function App() {
         <Navigation />
       </header>
       <Switch>
-        <Route path='/' exact>
+        <Route path='/goit-react-hw-05-movies/' exact>
           <HomeView />
         </Route>
-        <Route path='/movies'>
+        <Route path='/goit-react-hw-05-movies/movies'>
           <MoviesView />
         </Route>
-        <Route path='/'>
+        <Route path='/goit-react-hw-05-movies/'>
           <NotFoundView />
         </Route>
       </Switch>
