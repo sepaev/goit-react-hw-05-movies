@@ -1,24 +1,24 @@
-import { Route, Switch } from 'react-router';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import HomeView from './views/HomeView';
 import MoviesView from './views/MoviesView';
 import Navigation from './components/Navigation';
 import NotFoundView from './views/NotFoundView';
-import { SITE_URL } from './consts/consts';
 
 function App() {
+  const { url } = useRouteMatch();
   return (
     <div className='App'>
       <header className='App-header'>
         <Navigation />
       </header>
       <Switch>
-        <Route path={SITE_URL + '/'} exact>
+        <Route path={url + '/'} exact>
           <HomeView />
         </Route>
-        <Route path={SITE_URL + '/movies'}>
+        <Route path={url + '/movies'}>
           <MoviesView />
         </Route>
-        <Route path={SITE_URL + '/'}>
+        <Route path={url + '/'}>
           <NotFoundView />
         </Route>
       </Switch>

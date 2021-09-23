@@ -1,14 +1,14 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import css from './Navigation.module.css';
-import { SITE_URL } from '../../consts/consts';
 
 function Navigation() {
+  const { url } = useRouteMatch();
   return (
     <nav className={css._nav}>
-      <NavLink exact to={SITE_URL + '/'} className={css._link} activeClassName={css._activeLink}>
+      <NavLink exact to={url + '/'} className={css._link} activeClassName={css._activeLink}>
         Home
       </NavLink>
-      <NavLink to={SITE_URL + '/movies'} className={css._link} activeClassName={css._activeLink}>
+      <NavLink to={url + '/movies'} className={css._link} activeClassName={css._activeLink}>
         Movies
       </NavLink>
     </nav>

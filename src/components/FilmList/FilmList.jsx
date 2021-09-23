@@ -1,13 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import css from './FilmList.module.css';
-import { SITE_URL } from '../../consts/consts';
 
 function FilmList({ films }) {
+  const { url } = useRouteMatch();
   return (
     <ul className={css._filmList}>
       {films.map(film => (
         <li key={film.id} className={css._filmItem}>
-          <Link to={SITE_URL + '/movies/' + film.id} className={css._filmLink}>
+          <Link to={url + '/movies/' + film.id} className={css._filmLink}>
             {film.title}
           </Link>
         </li>
