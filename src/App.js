@@ -3,6 +3,7 @@ import HomeView from './views/HomeView';
 import MoviesView from './views/MoviesView';
 import Navigation from './components/Navigation';
 import NotFoundView from './views/NotFoundView';
+import { name } from '../package.json';
 
 function App() {
   const { url } = useRouteMatch();
@@ -12,13 +13,13 @@ function App() {
         <Navigation />
       </header>
       <Switch>
-        <Route path={url + '/'} exact>
+        <Route path={url + name + '/'} exact>
           <HomeView />
         </Route>
-        <Route path={url + '/movies'}>
+        <Route path={url + name + '/movies'}>
           <MoviesView />
         </Route>
-        <Route path={url + '/'}>
+        <Route path={url + name + '/'}>
           <NotFoundView />
         </Route>
       </Switch>

@@ -7,10 +7,12 @@ function MovieView() {
   const [film, setFilm] = useState(null);
   const [searchMode, setSearchMode] = useState(true);
   const [query, setQuery] = useState('');
+  const newFilmId = 604;
+
   function onSearch(query) {
     setQuery(query);
   }
-  const newFilmId = 604;
+
   useEffect(() => {
     async function fetchData() {
       try {
