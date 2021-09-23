@@ -6,7 +6,7 @@ function ShowBlock({ block, blockData }) {
   const { cast = [], results = [], page = 1 } = blockData;
   if (cast.length > 0) return <Cast cast={cast} />;
   if (results.length > 0) return <Reviews reviews={results} page={page} />;
-  return <h3>loading...</h3>;
+  return <h3>We don't have any reviews for this movie.</h3>;
 }
 
 export default ShowBlock;
