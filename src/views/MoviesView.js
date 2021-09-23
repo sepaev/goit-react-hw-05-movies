@@ -31,16 +31,18 @@ function MovieView() {
   }, []);
 
   useEffect(() => {
+    if (!query) return;
     async function fetchData() {
       try {
-        const response = await fetchMoviesByName(query);
-        if (response.status === 200) {
-          //   const { id, title, poster_path, popularity, overview, genres, release_date } = response.data;
-          console.dir(response.data);
-          //   setFilm({ id, title, poster_path, popularity, overview, genres, release_date });
-        } else {
-          throw new Error('Error - ' + response.status);
-        }
+        const response = await fetchMoviesByName(query, 1);
+        console.dir(response);
+        // if (response.status === 200) {
+        //   //   const { id, title, poster_path, popularity, overview, genres, release_date } = response.data;
+        //   console.dir(response.data);
+        //   //   setFilm({ id, title, poster_path, popularity, overview, genres, release_date });
+        // } else {
+        //   throw new Error('Error - ' + response.status);
+        // }
       } catch (error) {
         console.log('rejected   ' + error.message);
         return null;
