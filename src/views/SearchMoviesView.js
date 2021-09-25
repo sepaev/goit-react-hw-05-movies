@@ -29,6 +29,7 @@ function SearchMoviesView() {
           const { page, total_pages, results, total_results } = response.data;
           setResponse({ page, total_pages, total_results });
           setFilms(results);
+          console.log(history);
           history.push({ ...location, search: `query=${q}` });
         } else {
           throw new Error('Error - ' + response.status);
