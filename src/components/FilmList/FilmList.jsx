@@ -9,7 +9,7 @@ function FilmList({ films }) {
     <ul className={css._filmList}>
       {films.map(film => (
         <li key={film.id} className={css._filmItem}>
-          <Link to={pre + '/' + film.id} className={css._filmLink}>
+          <Link to={pre + 'movies/' + film.id} className={css._filmLink}>
             {film.title}
           </Link>
         </li>
