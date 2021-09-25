@@ -1,6 +1,6 @@
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import HomeView from './views/HomeView';
-import MoviesView from './views/MoviesView';
+import SearchMoviesView from './views/SearchMoviesView';
 import MovieInfoView from './views/MovieInfoView';
 import Navigation from './components/Navigation';
 import NotFoundView from './views/NotFoundView';
@@ -14,6 +14,9 @@ function App() {
         <Navigation />
       </header>
       <Switch>
+        <Route path={url + '/'} exact>
+          <HomeView />
+        </Route>
         <Route path={url + name + '/'} exact>
           <HomeView />
         </Route>
@@ -21,7 +24,7 @@ function App() {
           <MovieInfoView />
         </Route>
         <Route path={url + name + '/movies'}>
-          <MoviesView />
+          <SearchMoviesView />
         </Route>
         <Route path={url + name + '/'}>
           <NotFoundView />

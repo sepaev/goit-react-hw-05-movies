@@ -9,7 +9,7 @@ axios.defaults.params = { api_key: API_KEY, language: 'en-US' };
 ////////////// TRANDING
 // https://api.themoviedb.org/3/trending/movie/{timeWindow}?api_key={api_key}
 // time_window - day/week
-export const fetchTrandingMovies = async (timeWindow = 'week') => {
+export const fetchTrandingMovies = async (timeWindow = 'day') => {
   return await axios.get(`/trending/movie/${timeWindow}`, {});
 };
 

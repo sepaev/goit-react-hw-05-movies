@@ -1,12 +1,13 @@
 import css from './FilmInfo.module.css';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api';
 import ShowBlock from '../ShowBlock';
 
 function FilmInfo({ film }) {
   const [block, setBlock] = useState(null);
   const [blockData, setBlockData] = useState(null);
+  const { goBack } = useHistory();
 
   function changeBlock(e) {
     e.preventDefault();
@@ -59,7 +60,9 @@ function FilmInfo({ film }) {
 
   return (
     <div>
-      <button className={css._goBackButton}> Go Back</button>
+      <button className={css._goBackButton} onClick={goBack}>
+        Go Back
+      </button>
       <section key={id} className={css._infoSection}>
         <h1 className='visually-hidden'>Film info</h1>
         <div className={css._imageWrapper}>
