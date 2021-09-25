@@ -1,4 +1,4 @@
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import HomeView from './views/HomeView';
 import SearchMoviesView from './views/SearchMoviesView';
 import MovieInfoView from './views/MovieInfoView';
@@ -6,7 +6,6 @@ import Navigation from './components/Navigation';
 import NotFoundView from './views/NotFoundView';
 
 function App() {
-  const { url } = useRouteMatch();
   return (
     <div className='App'>
       <header className='App-header'>
