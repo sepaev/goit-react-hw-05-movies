@@ -1,6 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import HomeView from './views/HomeView';
-import SearchMoviesView from './views/SearchMoviesView';
+import MoviesView from './views/MoviesView';
 import MovieInfoView from './views/MovieInfoView';
 import Navigation from './components/Navigation';
 import NotFoundView from './views/NotFoundView';
@@ -22,7 +22,7 @@ function App() {
           <MovieInfoView />
         </Route>
         <Route path={'/movies'}>
-          <SearchMoviesView />
+          <MoviesView />
         </Route>
         <Route path={'/'}>
           <NotFoundView />

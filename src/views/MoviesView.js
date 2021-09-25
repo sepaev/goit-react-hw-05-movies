@@ -4,7 +4,7 @@ import { fetchMoviesByName } from '../services/api';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchList from '../components/SearchList';
 
-function SearchMoviesView() {
+function MoviesView() {
   const [query, setQuery] = useState('');
   const [films, setFilms] = useState(null);
   const [response, setResponse] = useState(null);
@@ -47,9 +47,9 @@ function SearchMoviesView() {
   return (
     <>
       <SearchBox onSearch={onSearch} />
-      {historyQuery && <SearchList films={films} response={response} />}
+      {historyQuery && <SearchList films={films} response={response} isMovies={true} />}
     </>
   );
 }
 
-export default SearchMoviesView;
+export default MoviesView;
