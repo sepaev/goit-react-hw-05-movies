@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import FilmInfo from '../components/FilmInfo';
 import { fetchMoviesById } from '../services/api';
+import NotFoundView from './NotFoundView';
 
 function MovieInfoView() {
   const [film, setFilm] = useState(null);
@@ -19,7 +20,7 @@ function MovieInfoView() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetchMoviesById(filmId);
+        const response = await fetchMoviesById(parseInt(filmId));
         if (response.status === 200) {
           const { id, title, poster_path, popularity, overview, genres, release_date } = response.data;
           setFilm({ id, title, poster_path, popularity, overview, genres, release_date });
@@ -33,7 +34,7 @@ function MovieInfoView() {
     }
     fetchData();
   }, [filmId]);
-
+  if (parseInt(filmId).toString().length !== filmId.length) return <NotFoundView />;
   return <div className='container'>{filmId && <FilmInfo film={film} pathBack={getPathBack()} />}</div>;
 }
 
