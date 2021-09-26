@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import css from './FilmList.module.css';
 
@@ -17,3 +18,8 @@ function FilmList({ films, pathBack = '/' }) {
 }
 
 export default FilmList;
+
+FilmList.propTypes = {
+  films: PropTypes.array,
+  pathBack: PropTypes.string,
+};

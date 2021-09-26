@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 function Comment({ comment }) {
   if (!comment) return <h3>no comments</h3>;
   return comment.map((phrase, index) => {
@@ -6,3 +8,7 @@ function Comment({ comment }) {
 }
 
 export default Comment;
+
+Comment.propTypes = {
+  cast: PropTypes.array,
+};

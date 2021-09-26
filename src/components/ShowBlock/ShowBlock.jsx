@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Cast from '../Cast';
 import Reviews from '../Reviews';
 
@@ -10,3 +11,8 @@ function ShowBlock({ block, blockData }) {
 }
 
 export default ShowBlock;
+
+Comment.propTypes = {
+  block: PropTypes.string,
+  blockData: PropTypes.array,
+};

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import nophoto from '../../images/no-image-available.png';
 function Cast({ cast }) {
@@ -23,3 +24,7 @@ function Cast({ cast }) {
 }
 
 export default Cast;
+
+Cast.propTypes = {
+  cast: PropTypes.array,
+};

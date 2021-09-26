@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import Comment from '../Comment';
 import css from './Reviews.module.css';
 
@@ -25,3 +26,8 @@ function Reviews({ reviews, page }) {
 }
 
 export default Reviews;
+
+Reviews.propTypes = {
+  reviews: PropTypes.array,
+  page: PropTypes.number,
+};

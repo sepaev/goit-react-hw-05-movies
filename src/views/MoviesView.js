@@ -4,7 +4,7 @@ import { fetchMoviesByName } from '../services/api';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchList from '../components/SearchList';
 
-function MoviesView({ backFunc }) {
+function MoviesView() {
   const [query, setQuery] = useState('');
   const [films, setFilms] = useState(null);
   const [response, setResponse] = useState(null);
@@ -16,20 +16,19 @@ function MoviesView({ backFunc }) {
     setQuery(query);
     setResponse(null);
   }
+  const search_query = query ? query : historyQuery;
 
   useEffect(() => {
-    let q = historyQuery;
-    if (!q) q = query;
-    if (!q) return;
-    if (response) return;
+    if (!search_query) return;
+    if (response && response.search_query === search_query) return;
     async function fetchData() {
       try {
-        const response = await fetchMoviesByName(q, 1);
+        const response = await fetchMoviesByName(search_query, 1);
         if (response.status === 200) {
           const { page, total_pages, results, total_results } = response.data;
-          setResponse({ page, total_pages, total_results });
+          setResponse({ page, total_pages, total_results, search_query });
           setFilms(results);
-          history.push({ ...location, search: `query=${q}` });
+          history.push({ ...location, search: `query=${search_query}` });
         } else {
           throw new Error('Error - ' + response.status);
         }
@@ -41,7 +40,7 @@ function MoviesView({ backFunc }) {
       }
     }
     fetchData();
-  }, [history, historyQuery, location, query, response]);
+  }, [history, location, response, search_query]);
 
   function getPathBack() {
     return '/movies?query=' + historyQuery;

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import css from './FilmInfo.module.css';
 import { useEffect, useState } from 'react';
 import { useHistory, Route, useRouteMatch, useLocation } from 'react-router-dom';
@@ -119,3 +120,8 @@ function FilmInfo({ film, pathBack }) {
 }
 
 export default FilmInfo;
+
+FilmInfo.propTypes = {
+  film: PropTypes.object,
+  pathBack: PropTypes.string,
+};
