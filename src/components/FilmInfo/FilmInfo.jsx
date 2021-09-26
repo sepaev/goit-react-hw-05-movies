@@ -1,6 +1,6 @@
 import css from './FilmInfo.module.css';
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory, Route, useRouteMatch, useLocation } from 'react-router-dom';
 import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api';
 import ShowBlock from '../ShowBlock';
 
@@ -8,16 +8,27 @@ function FilmInfo({ film }) {
   const [block, setBlock] = useState(null);
   const [blockData, setBlockData] = useState(null);
   const { goBack } = useHistory();
+  const { url } = useRouteMatch();
+  const location = useLocation();
+  const arr = location.pathname.split('/');
+  const pathnameEnd = arr[arr.length - 1];
+  let localBlock = pathnameEnd === 'cast' || pathnameEnd === 'reviews' ? pathnameEnd : '';
+  const history = useHistory();
+  const pathname = useHistory().location.pathname;
+  console.log('localblock - ' + localBlock);
 
   function changeBlock(e) {
     e.preventDefault();
     const blockName = e.target.innerText.toLowerCase();
     if (!block || block !== blockName) {
       setBlock(blockName);
+      history.push((url + '/' + blockName).split('//').join('/'));
       return;
     }
     if (block === blockName) {
       setBlock(null);
+      history.push(pathname.split(block)[0]);
+      localBlock = '';
       return;
     }
   }
@@ -25,7 +36,9 @@ function FilmInfo({ film }) {
     return dateString.split('-')[0];
   }
   useEffect(() => {
-    if (!film) return <h1>loading...</h1>;
+    console.log('block -' + block);
+    // if (block === localBlock) return;
+    if (!film || !localBlock) return <h1>loading...</h1>;
     const { id } = film;
 
     async function fetchData(block) {
@@ -37,7 +50,7 @@ function FilmInfo({ film }) {
           response = await fetchReviewsByMovieId(id);
         } else {
           setBlockData(null);
-          return;
+          return <h1>No cast</h1>;
         }
         if (response.status === 200) {
           setBlockData(response.data);
@@ -50,12 +63,12 @@ function FilmInfo({ film }) {
       }
     }
     fetchData(block);
-  }, [film, block]);
+    if (localBlock !== block) setBlock(localBlock);
+  }, [film, block, localBlock]);
 
   if (!film) return <h1>loading...</h1>;
   const { id, title, poster_path, popularity, overview, genres, release_date } = film;
   const year = getYear(release_date);
-  console.log(year);
   const genresString = genres.map(({ name }) => name).join(', ');
 
   return (
@@ -82,19 +95,21 @@ function FilmInfo({ film }) {
         <h1>Additional information</h1>
         <ul>
           <li>
-            <Link to='++/cast' onClick={changeBlock}>
+            <a href={url + '/cast'} onClick={changeBlock}>
               Cast
-            </Link>
+            </a>
           </li>
           <li>
-            <Link to='++/reviews' onClick={changeBlock}>
+            <a href={url + '/reviews'} onClick={changeBlock}>
               Reviews
-            </Link>
+            </a>
           </li>
         </ul>
       </section>
       <hr />
-      <section>{block && <ShowBlock block={block} blockData={blockData} />}</section>
+      <section>
+        <Route path={url + '/' + block}>{block && <ShowBlock block={block} blockData={blockData} />}</Route>
+      </section>
     </div>
   );
 }
