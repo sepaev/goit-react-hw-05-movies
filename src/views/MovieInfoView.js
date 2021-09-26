@@ -7,8 +7,11 @@ import NotFoundView from './NotFoundView';
 function MovieInfoView() {
   const [film, setFilm] = useState(null);
   const [back, setBack] = useState(null);
+  const [noPage, setNoPage] = useState(false);
   const filmId = useParams().movieId;
   const location = useLocation();
+
+  if (parseInt(filmId).toString().length !== filmId.length && !noPage) setNoPage(true);
 
   function getPathBack() {
     const { pathback } = location;
@@ -24,17 +27,20 @@ function MovieInfoView() {
         if (response.status === 200) {
           const { id, title, poster_path, popularity, overview, genres, release_date } = response.data;
           setFilm({ id, title, poster_path, popularity, overview, genres, release_date });
+          setNoPage(false);
         } else {
           throw new Error('Error - ' + response.status);
         }
       } catch (error) {
         console.log('rejected   ' + error.message);
+        if (error.response.status === 404) setNoPage(true);
         return null;
       }
     }
     fetchData();
   }, [filmId]);
-  if (parseInt(filmId).toString().length !== filmId.length) return <NotFoundView />;
+
+  if (noPage) return <NotFoundView />;
   return <div className='container'>{filmId && <FilmInfo film={film} pathBack={getPathBack()} />}</div>;
 }
 
