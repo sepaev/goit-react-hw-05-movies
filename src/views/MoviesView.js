@@ -4,13 +4,14 @@ import { fetchMoviesByName } from '../services/api';
 import { useHistory, useLocation } from 'react-router-dom';
 import SearchList from '../components/SearchList';
 
-function MoviesView() {
+function MoviesView({ backFunc }) {
   const [query, setQuery] = useState('');
   const [films, setFilms] = useState(null);
   const [response, setResponse] = useState(null);
   const history = useHistory();
   const location = useLocation();
   const historyQuery = new URLSearchParams(location.search).get('query');
+
   function onSearch(query) {
     setQuery(query);
     setResponse(null);
@@ -24,12 +25,10 @@ function MoviesView() {
     async function fetchData() {
       try {
         const response = await fetchMoviesByName(q, 1);
-        console.dir(response);
         if (response.status === 200) {
           const { page, total_pages, results, total_results } = response.data;
           setResponse({ page, total_pages, total_results });
           setFilms(results);
-          console.log(history);
           history.push({ ...location, search: `query=${q}` });
         } else {
           throw new Error('Error - ' + response.status);
@@ -44,10 +43,13 @@ function MoviesView() {
     fetchData();
   }, [history, historyQuery, location, query, response]);
 
+  function getPathBack() {
+    return '/movies?query=' + historyQuery;
+  }
   return (
     <>
       <SearchBox onSearch={onSearch} />
-      {historyQuery && <SearchList films={films} response={response} isMovies={true} />}
+      {historyQuery && <SearchList films={films} response={response} pathBack={getPathBack()} />}
     </>
   );
 }

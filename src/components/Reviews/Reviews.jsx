@@ -7,7 +7,6 @@ function Reviews({ reviews, page }) {
     <ul>
       {reviews.map(({ id, author, content, url }) => {
         const comment = content.split('\r\n\r\n');
-        console.dir(comment);
         return (
           <li key={id}>
             <p className={css._autorName}>

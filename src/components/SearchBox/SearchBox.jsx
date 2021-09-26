@@ -11,7 +11,6 @@ function SearchBox({ onSearch }) {
   }
 
   function onClick() {
-    console.log(query);
     onSearch(query);
     setQuery('');
   }

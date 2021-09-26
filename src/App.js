@@ -15,9 +15,6 @@ function App() {
         <Route path={'/'} exact>
           <HomeView />
         </Route>
-        <Route path={'/'} exact>
-          <HomeView />
-        </Route>
         <Route path={'/movies/:movieId'}>
           <MovieInfoView />
         </Route>

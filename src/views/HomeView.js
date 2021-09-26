@@ -10,9 +10,7 @@ function HomeView() {
       try {
         const response = await fetchTrandingMovies();
         if (response.status === 200) {
-          console.dir(response.data.results);
           setFilms(response.data.results);
-          //   return response.data;
         } else {
           throw new Error('Error - ' + response.status);
         }

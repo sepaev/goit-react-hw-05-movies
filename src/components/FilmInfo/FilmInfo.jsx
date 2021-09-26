@@ -4,18 +4,24 @@ import { useHistory, Route, useRouteMatch, useLocation } from 'react-router-dom'
 import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api';
 import ShowBlock from '../ShowBlock';
 
-function FilmInfo({ film }) {
+function FilmInfo({ film, pathBack }) {
   const [block, setBlock] = useState(null);
   const [blockData, setBlockData] = useState(null);
-  const { goBack } = useHistory();
+  const [back, setBack] = useState('/');
   const { url } = useRouteMatch();
-  const location = useLocation();
-  const arr = location.pathname.split('/');
-  const pathnameEnd = arr[arr.length - 1];
-  let localBlock = pathnameEnd === 'cast' || pathnameEnd === 'reviews' ? pathnameEnd : '';
   const history = useHistory();
-  const pathname = useHistory().location.pathname;
-  console.log('localblock - ' + localBlock);
+  const location = useLocation();
+  if (pathBack && pathBack !== back) setBack(pathBack);
+  let localBlock = getPathBlock();
+
+  function getPathBlock() {
+    const arr = location.pathname.split('/');
+    const pathnameEnd = arr[arr.length - 1];
+    return pathnameEnd === 'cast' || pathnameEnd === 'reviews' ? pathnameEnd : '';
+  }
+  function goBack() {
+    history.push(back);
+  }
 
   function changeBlock(e) {
     e.preventDefault();
@@ -27,7 +33,7 @@ function FilmInfo({ film }) {
     }
     if (block === blockName) {
       setBlock(null);
-      history.push(pathname.split(block)[0]);
+      history.push(history.location.pathname.split(block)[0]);
       localBlock = '';
       return;
     }
@@ -36,8 +42,6 @@ function FilmInfo({ film }) {
     return dateString.split('-')[0];
   }
   useEffect(() => {
-    console.log('block -' + block);
-    // if (block === localBlock) return;
     if (!film || !localBlock) return <h1>loading...</h1>;
     const { id } = film;
 
