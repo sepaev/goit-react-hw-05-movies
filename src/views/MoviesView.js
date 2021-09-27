@@ -42,13 +42,10 @@ function MoviesView() {
     fetchData();
   }, [history, location, response, search_query]);
 
-  function getPathBack() {
-    return '/movies?query=' + historyQuery;
-  }
   return (
     <>
       <SearchBox onSearch={onSearch} />
-      {historyQuery && <SearchList films={films} response={response} pathBack={getPathBack()} />}
+      {historyQuery && <SearchList films={films} response={response} />}
     </>
   );
 }

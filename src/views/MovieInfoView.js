@@ -6,19 +6,10 @@ import NotFoundView from './NotFoundView';
 
 function MovieInfoView() {
   const [film, setFilm] = useState(null);
-  const [back, setBack] = useState(null);
   const [noPage, setNoPage] = useState(false);
   const filmId = useParams().movieId;
-  const location = useLocation();
 
   if (parseInt(filmId).toString().length !== filmId.length && !noPage) setNoPage(true);
-
-  function getPathBack() {
-    const { pathback } = location;
-    if (!pathback) return back;
-    if (pathback !== back) setBack(pathback);
-    return pathback ? pathback : '/';
-  }
 
   useEffect(() => {
     async function fetchData() {
@@ -41,7 +32,7 @@ function MovieInfoView() {
   }, [filmId]);
 
   if (noPage) return <NotFoundView />;
-  return <div className='container'>{filmId && <FilmInfo film={film} pathBack={getPathBack()} />}</div>;
+  return <div className='container'>{filmId && <FilmInfo film={film} />}</div>;
 }
 
 export default MovieInfoView;

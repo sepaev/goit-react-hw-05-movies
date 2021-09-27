@@ -6,23 +6,29 @@ import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api'
 import Cast from '../Cast';
 import Reviews from '../Reviews';
 
-function FilmInfo({ film, pathBack }) {
+function FilmInfo({ film }) {
   const [block, setBlock] = useState(null);
   const [blockData, setBlockData] = useState({ cast: [], results: [], page: 1 });
-  const [back, setBack] = useState('/');
   const { url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
-  if (pathBack && pathBack !== back) setBack(pathBack);
+
   let localBlock = getPathBlock();
+
   if (localBlock !== block) setBlock(localBlock);
+
   function getPathBlock() {
-    const arr = location.pathname.split('/');
-    const pathnameEnd = arr[arr.length - 1];
-    return pathnameEnd === 'cast' || pathnameEnd === 'reviews' ? pathnameEnd : '';
+    if (location.pathname.includes('cast')) return 'cast';
+    if (location.pathname.includes('reviews')) return 'reviews';
+    return '';
+    // const arr = location.pathname.split('/');
+    // const pathnameEnd = arr[arr.length - 1];
+    // return pathnameEnd === 'cast' || pathnameEnd === 'reviews' ? pathnameEnd : '';
   }
+
   function goBack() {
-    history.push(back);
+    if (!location.state) return history.push('/');
+    history.push(location.state.pathback);
   }
 
   function changeBlock(e) {
@@ -127,5 +133,4 @@ export default FilmInfo;
 
 FilmInfo.propTypes = {
   film: PropTypes.object,
-  pathBack: PropTypes.string,
 };
