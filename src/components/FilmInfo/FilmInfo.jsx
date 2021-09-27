@@ -27,8 +27,8 @@ function FilmInfo({ film }) {
   }
 
   function goBack() {
-    if (!location.state) return history.push('/');
-    history.push(location.state.pathback);
+    // if (!location.state) return history.push('/');
+    history.push(location?.state?.pathback || '/');
   }
 
   function changeBlock(e) {
