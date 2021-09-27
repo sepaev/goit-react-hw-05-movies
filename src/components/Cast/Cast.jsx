@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Fragment } from 'react';
 import nophoto from '../../images/no-image-available.png';
 function Cast({ cast }) {
-  if (!cast) return;
+  if (!cast) return <h3>loading...</h3>;
   return (
     <div>
       <ul>

@@ -3,18 +3,19 @@ import css from './FilmInfo.module.css';
 import { useEffect, useState } from 'react';
 import { useHistory, Route, useRouteMatch, useLocation } from 'react-router-dom';
 import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api';
-import ShowBlock from '../ShowBlock';
+import Cast from '../Cast';
+import Reviews from '../Reviews';
 
 function FilmInfo({ film, pathBack }) {
   const [block, setBlock] = useState(null);
-  const [blockData, setBlockData] = useState(null);
+  const [blockData, setBlockData] = useState({ cast: [], results: [], page: 1 });
   const [back, setBack] = useState('/');
   const { url } = useRouteMatch();
   const history = useHistory();
   const location = useLocation();
   if (pathBack && pathBack !== back) setBack(pathBack);
   let localBlock = getPathBlock();
-
+  if (localBlock !== block) setBlock(localBlock);
   function getPathBlock() {
     const arr = location.pathname.split('/');
     const pathnameEnd = arr[arr.length - 1];
@@ -67,15 +68,15 @@ function FilmInfo({ film, pathBack }) {
         return null;
       }
     }
+
     fetchData(block);
-    if (localBlock !== block) setBlock(localBlock);
   }, [film, block, localBlock]);
 
   if (!film) return <h1>loading...</h1>;
   const { id, title, poster_path, popularity, overview, genres, release_date } = film;
   const year = getYear(release_date);
   const genresString = genres.map(({ name }) => name).join(', ');
-
+  console.log(blockData);
   return (
     <div>
       <button className={css._goBackButton} onClick={goBack}>
@@ -113,7 +114,10 @@ function FilmInfo({ film, pathBack }) {
       </section>
       <hr />
       <section>
-        <Route path={url + '/' + block}>{block && <ShowBlock block={block} blockData={blockData} />}</Route>
+        <Route path={url + '/cast'}>{block === 'cast' && <Cast cast={blockData.cast} />}</Route>
+        <Route path={url + '/reviews'}>
+          {block === 'reviews' && <Reviews reviews={blockData.results} page={blockData.page} />}
+        </Route>
       </section>
     </div>
   );

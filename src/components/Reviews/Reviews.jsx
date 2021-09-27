@@ -3,7 +3,7 @@ import Comment from '../Comment';
 import css from './Reviews.module.css';
 
 function Reviews({ reviews, page }) {
-  if (!reviews) return <h3>We don't have any reviews for this movie.</h3>;
+  if (!reviews || reviews.length < 1) return <h3>We don't have any reviews for this movie.</h3>;
   return (
     <ul>
       {reviews.map(({ id, author, content, url }) => {

@@ -33,7 +33,7 @@ function MovieInfoView() {
         }
       } catch (error) {
         console.log('rejected   ' + error.message);
-        if (error.response.status === 404) setNoPage(true);
+        if (error.response && error.response.status === 404) setNoPage(true);
         return null;
       }
     }
