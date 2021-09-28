@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import css from './FilmInfo.module.css';
 import { useEffect, useState } from 'react';
-import { useHistory, Route, useRouteMatch, useLocation } from 'react-router-dom';
+import { useHistory, Route, useRouteMatch, useLocation, Switch } from 'react-router-dom';
 import { fetchActorsByMovieId, fetchReviewsByMovieId } from '../../services/api';
 import Cast from '../Cast';
 import Reviews from '../Reviews';
@@ -36,7 +36,7 @@ function FilmInfo({ film }) {
     const blockName = e.target.innerText.toLowerCase();
     if (!block || block !== blockName) {
       setBlock(blockName);
-      history.push((url + '/' + blockName).split('//').join('/'));
+      history.push((url + '/' + blockName + '/').split('//').join('/'));
       return;
     }
     if (block === blockName) {
@@ -107,12 +107,12 @@ function FilmInfo({ film }) {
         <h1>Additional information</h1>
         <ul>
           <li>
-            <a href={url + '/cast'} onClick={changeBlock}>
+            <a href={url + '/cast/'} onClick={changeBlock}>
               Cast
             </a>
           </li>
           <li>
-            <a href={url + '/reviews'} onClick={changeBlock}>
+            <a href={url + '/reviews/'} onClick={changeBlock}>
               Reviews
             </a>
           </li>
@@ -120,10 +120,10 @@ function FilmInfo({ film }) {
       </section>
       <hr />
       <section>
-        <Route path={url + '/cast'}>{block === 'cast' && <Cast cast={blockData.cast} />}</Route>
-        <Route path={url + '/reviews'}>
-          {block === 'reviews' && <Reviews reviews={blockData.results} page={blockData.page} />}
-        </Route>
+        <Switch>
+          <Route path={url + '/cast'}>{<Cast cast={blockData.cast} />}</Route>
+          <Route path={url + '/reviews'}>{<Reviews reviews={blockData.results} page={blockData.page} />}</Route>
+        </Switch>
       </section>
     </div>
   );
