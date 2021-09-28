@@ -12,16 +12,16 @@ function App() {
         <Navigation />
       </header>
       <Switch>
-        <Route path={'/'} exact>
+        <Route path='/' exact>
           <HomeView />
         </Route>
-        <Route path={'/movies/:movieId'}>
+        <Route path='/movies/:movieId'>
           <MovieInfoView />
         </Route>
-        <Route path={'/movies'}>
+        <Route path='/movies'>
           <MoviesView />
         </Route>
-        <Route path={'/'}>
+        <Route path='/'>
           <NotFoundView />
         </Route>
       </Switch>
